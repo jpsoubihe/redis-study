@@ -18,14 +18,35 @@ To start with, we've add a docker-compose file with a redis image prepared to he
 
 Our application will be a simple CRUD based on spring framework (Spring Boot, Spring Data, ...), so we'll need also to add those dependencies to pom.xml file.
 
-We will have a couple models to handle. A simple one with few attributes, called XXX, and other one, XXX , with a lot of attributes and complex abstractions.
+We will have a some models to handle.
+To apply our analyzis to Redis application we thought on 3 different entities, that would allow us to prepare different environments and exercise our Redis in-memory storage in a variety of ways.
 
-This difference between both is intend to give us a broad perspective and exercise Redis operations in different scenarios.
+#### Account.java
+```
+{
+    "accountId": "2275be7b-aca4-49fa-b3e5-2ddc93a63d90",
+    "accountName": "Test account"
+}
+```
 
-After that we can start to develop our controller, based on EPs below:
+#### Food.java
+```
+{
+    "foodId": "b136bcb3-5e44-41e8-80b2-dc554f222142",
+    "foodName": "Milk Shake",
+    "foodIngredients": ["Milk", "Ice-cream", "chocolate"],
+    "foodType": "Sweet"
+}
+```
 
-- [POST] Endpoint 1
-- [GET] Endpoint 2
-- [PUT] Endpoint 2
-- [DELETE] Endpoint 2
+After that model is defined, we can start to develop our controller, based on EPs below:
+
+- [POST] /v1/account/
+- [GET] /v1/account/{id}
+- [PUT] /v1/account/{id}
+- [DELETE] /v1/account/{id}
+- [POST] /v1/food/
+- [GET] /v1/food/{id}
+- [PUT] /v1/food/{id}
+- [DELETE] /v1/food/{id}
 
