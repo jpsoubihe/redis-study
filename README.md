@@ -19,7 +19,7 @@ To start with, we've add a docker-compose file with a redis image prepared to he
 Our application will be a simple CRUD based on spring framework (Spring Boot, Spring Data, ...), so we'll need also to add those dependencies to pom.xml file.
 
 We will have a some models to handle.
-To apply our analyzis to Redis application we thought on 3 different entities, that would allow us to prepare different environments and exercise our Redis in-memory storage in a variety of ways.
+To apply our analyzis to Redis application we thought on 2 different entities, that would allow us to prepare different environments and exercise our Redis in-memory storage in a variety of ways.
 
 #### Account.java
 ```
@@ -49,4 +49,15 @@ After that model is defined, we can start to develop our controller, based on EP
 - [GET] /v1/food/{id}
 - [PUT] /v1/food/{id}
 - [DELETE] /v1/food/{id}
+
+## Redis Structure
+
+To store information regarding foods, we applied a standard key format like
+`food:{foodId}`
+
+And to store accounts
+`account:{accountId}`
+
+We configured two different **RedisTemplate** for operations involving foods and accounts, respectively. The beans can be seen at `RedisConfiguration.java` class. With it we applied a RedisValueSerializer using **Jackson2JsonRedisSerializer** to allow our objects to be mapped to their abstractions, instead of handling it as strings.
+
 
