@@ -1,9 +1,9 @@
 package com.example.redisStudy.controllers;
 
 import com.example.redisStudy.model.Food;
+import com.example.redisStudy.service.FoodService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+import javax.management.AttributeNotFoundException;
 
 @Slf4j
 @RestController
@@ -22,40 +21,30 @@ import java.util.concurrent.TimeUnit;
 public class FoodController {
 
     @Autowired
-    RedisTemplate<String, Food> redisFoodTemplate;
+    FoodService foodService;
 
     @PostMapping
     public Food createFood(@RequestBody Food food) throws Exception {
-        if(food == null) {
-            throw new Exception("No food sent on request payload.");
-        }
-
-        if(food.getFoodId() == null) {
-            food.setFoodId(UUID.randomUUID().toString());
-        }
-
-        redisFoodTemplate.opsForValue().set("food:" + food.getFoodId(), food, 1, TimeUnit.DAYS);
-
-        log.info("[POST] creating food with id={}", food.getFoodId());
-        return food;
+        log.info("[POST] processing request for food with id={}", food.getFoodId());
+        return foodService.createFood(food);
     }
 
     @GetMapping("/{id}")
-    public Food getFood(@PathVariable("id") String foodId) {
-        log.info("[GET] retrieving food with id={}", foodId);
-        return redisFoodTemplate.opsForValue().get("food:" + foodId);
+    public Food getFood(@PathVariable("id") String foodId) throws AttributeNotFoundException {
+        log.info("[GET] processing request for food with id={}", foodId);
+        return foodService.getFood(foodId);
     }
 
     @PutMapping("/{id}")
     public void updateFood(@PathVariable("id") String foodId, @RequestBody Food food) {
-        log.info("[PUT] updating food with id={}", foodId);
-        redisFoodTemplate.opsForValue().set("food:" + foodId, food, 1, TimeUnit.DAYS);
+        log.info("[PUT] processing request for food with id={}", foodId);
+        foodService.updateFood(foodId, food);
     }
 
     @DeleteMapping("/{id}")
     public void deleteAccount(@PathVariable(name = "id") String foodId) {
-        log.info("[DELETE] removing food with id={}", foodId);
-        redisFoodTemplate.delete("food:" + foodId);
+        log.info("[DELETE] processing request for food with id={}", foodId);
+        foodService.deleteFood(foodId);
     }
 
 }
