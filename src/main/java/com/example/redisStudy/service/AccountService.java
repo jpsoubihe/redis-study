@@ -1,5 +1,6 @@
 package com.example.redisStudy.service;
 
+import com.example.redisStudy.exceptions.AccountNotFoundException;
 import com.example.redisStudy.model.Account;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,12 @@ public class AccountService {
         return account.getAccountId();
     }
 
-    public Account getAccount(String accountId) throws AttributeNotFoundException {
+    public Account getAccount(String accountId) throws AccountNotFoundException {
         log.info("[GET] retrieving account with id={}", accountId);
         return Optional.ofNullable(
                 redisAccountTemplate.opsForValue().get("accounts:" + accountId))
                 .filter(Objects::nonNull)
-                .orElseThrow(AttributeNotFoundException::new);
+                .orElseThrow(() -> new AccountNotFoundException(String.format("Account with id=%s not found.", accountId)));
 
     }
 

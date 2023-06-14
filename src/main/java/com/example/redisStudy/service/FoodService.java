@@ -1,5 +1,6 @@
 package com.example.redisStudy.service;
 
+import com.example.redisStudy.exceptions.FoodNotFoundException;
 import com.example.redisStudy.model.Food;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,12 @@ public class FoodService {
         return food;
     }
 
-    public Food getFood(String foodId) throws AttributeNotFoundException {
+    public Food getFood(String foodId) throws FoodNotFoundException {
         log.info("[GET] retrieving food with id={}", foodId);
         return Optional.ofNullable(
                         redisFoodTemplate.opsForValue().get("food:" + foodId))
                 .filter(Objects::nonNull)
-                .orElseThrow(AttributeNotFoundException::new);
+                .orElseThrow(() -> new FoodNotFoundException(String.format("Food with id=%s not found", foodId)));
     }
 
     public boolean updateFood(String foodId, Food newFood) {
