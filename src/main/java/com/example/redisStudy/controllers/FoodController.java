@@ -1,9 +1,11 @@
 package com.example.redisStudy.controllers;
 
+import com.example.redisStudy.exceptions.FoodNotFoundException;
 import com.example.redisStudy.model.Food;
 import com.example.redisStudy.service.FoodService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,15 +26,15 @@ public class FoodController {
     FoodService foodService;
 
     @PostMapping
-    public Food createFood(@RequestBody Food food) throws Exception {
+    public ResponseEntity<Food> createFood(@RequestBody Food food) throws Exception {
         log.info("[POST] processing request for food with id={}", food.getFoodId());
-        return foodService.createFood(food);
+        return ResponseEntity.ok(foodService.createFood(food));
     }
 
     @GetMapping("/{id}")
-    public Food getFood(@PathVariable("id") String foodId) throws AttributeNotFoundException {
+    public ResponseEntity<Food> getFood(@PathVariable("id") String foodId) throws FoodNotFoundException {
         log.info("[GET] processing request for food with id={}", foodId);
-        return foodService.getFood(foodId);
+        return ResponseEntity.ok(foodService.getFood(foodId));
     }
 
     @PutMapping("/{id}")

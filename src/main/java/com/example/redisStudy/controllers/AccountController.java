@@ -1,9 +1,11 @@
 package com.example.redisStudy.controllers;
 
+import com.example.redisStudy.exceptions.AccountNotFoundException;
 import com.example.redisStudy.model.Account;
 import com.example.redisStudy.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.management.AttributeNotFoundException;
 
 @Slf4j
 @RestController
@@ -24,15 +25,15 @@ public class AccountController {
     AccountService accountService;
 
     @PostMapping
-    public String createAccount(@RequestBody Account account) {
+    public ResponseEntity<String> createAccount(@RequestBody Account account) {
         log.info("[POST] processing request for account with id={}", account.getAccountId());
-        return accountService.createAccount(account);
+        return ResponseEntity.ok(accountService.createAccount(account));
     }
 
     @GetMapping("/{id}")
-    public Account getAccount(@PathVariable(name = "id") String accountId) throws AttributeNotFoundException {
+    public ResponseEntity<Account> getAccount(@PathVariable(name = "id") String accountId) throws AccountNotFoundException {
         log.info("[GET] processing request for account with id={}", accountId);
-        return accountService.getAccount(accountId);
+        return ResponseEntity.ok(accountService.getAccount(accountId));
     }
 
     @PutMapping("/{id}")
