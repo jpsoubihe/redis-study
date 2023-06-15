@@ -60,4 +60,41 @@ And to store accounts
 
 We configured two different **RedisTemplate** for operations involving foods and accounts, respectively. The beans can be seen at `RedisConfiguration.java` class. With it we applied a RedisValueSerializer using **Jackson2JsonRedisSerializer** to allow our objects to be mapped to their abstractions, instead of handling it as strings.
 
+## Tests
+
+We can see tests made at ./src/test/java/com/example/redisStudy
+
+IntegrationTests are located at `integrationTest` folder. All of them will have same suffix. 
+
+Using surefire plugin, we were able to set it execution on a separate phase then unitTests, that are located at `unitTest` folder.
+
+```
+<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/integrationTest/*.java</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <excludes>
+                                <exclude>none</exclude>
+                            </excludes>
+                            <includes>
+                                <include>**/integrationTest/*.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+```
+
 
