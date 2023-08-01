@@ -96,5 +96,36 @@ Using surefire plugin, we were able to set it execution on a separate phase then
                 </executions>
             </plugin>
 ```
+## How to run it
 
+At root level we can find docker-compose.yaml file. Through it we can raise the container for Redis and allow our service to connect to it once the application is started.
 
+```
+docker-compose up
+```
+
+Then we can run it using Maven wrapper or through your preferred IDE. The application was developed for Java 17, instead of almost no use of its features, so pay attention to your JAVA version. At root level
+```
+./mvnw spring-boot:run
+```
+
+As for the tests, we attached `test-container` library. The configuration we set at `DockerConfigurationIntegrationTest` will raise a Redis container at port 6379 just for the integration tests context (so make sure this door is available at the moment!).
+
+The **mvn test** task should run exclusively our unit tests, per task configuration at `pom.xml` file.
+
+```
+./mvnw test
+```
+
+To run both unit and integration tests we can opt for the mvn verify task
+
+```
+./mvnw verify
+```
+
+## Future developments
+
+- Checkstyle task and configuration definition
+- Add a relational DB integration to the same models
+- Add metrics
+- Add dashboards for performance comparison
