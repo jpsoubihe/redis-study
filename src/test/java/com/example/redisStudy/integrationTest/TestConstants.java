@@ -1,4 +1,4 @@
-package com.example.redisStudy;
+package com.example.redisStudy.integrationTest;
 
 public class TestConstants {
     public static final String BASE_URL = "http://localhost:8080";

@@ -11,8 +11,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.UUID;
 
-import static com.example.redisStudy.TestConstants.BASE_ACCOUNT_URL_SUFFIX;
-import static com.example.redisStudy.TestConstants.BASE_URL;
+import static com.example.redisStudy.integrationTest.TestConstants.BASE_ACCOUNT_URL_SUFFIX;
+import static com.example.redisStudy.integrationTest.TestConstants.BASE_URL;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class AccountIntegrationTest {

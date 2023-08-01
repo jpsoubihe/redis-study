@@ -1,6 +1,5 @@
 package com.example.redisStudy.integrationTest;
 
-import com.example.redisStudy.TestConstants;
 import com.example.redisStudy.controllers.FoodController;
 import com.example.redisStudy.model.Food;
 import com.example.redisStudy.model.FoodType;
@@ -13,8 +12,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.UUID;
 
-import static com.example.redisStudy.TestConstants.BASE_FOOD_URL_SUFFIX;
-import static com.example.redisStudy.TestConstants.BASE_URL;
+import static com.example.redisStudy.integrationTest.TestConstants.BASE_FOOD_URL_SUFFIX;
+import static com.example.redisStudy.integrationTest.TestConstants.BASE_URL;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class FoodIntegrationTest {
