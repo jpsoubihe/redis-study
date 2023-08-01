@@ -42,7 +42,6 @@ public class RedisConfiguration {
         RedisTemplate<String, Food> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
         Jackson2JsonRedisSerializer<Food> jacksonFoodSerializer = new Jackson2JsonRedisSerializer<>(Food.class);
-        // Add some specific configuration here. Key serializers, etc.
         template.setKeySerializer(RedisSerializer.string());
         template.setValueSerializer(jacksonFoodSerializer);
         return template;
@@ -53,7 +52,6 @@ public class RedisConfiguration {
         RedisTemplate<String, Account> template = new RedisTemplate<>();
         Jackson2JsonRedisSerializer<Account> jacksonAccountSerializer = new Jackson2JsonRedisSerializer<>(Account.class);
         template.setConnectionFactory(connectionFactory);
-        // Add some specific configuration here. Key serializers, etc.
         template.setKeySerializer(RedisSerializer.string());
         template.setValueSerializer(jacksonAccountSerializer);
 
