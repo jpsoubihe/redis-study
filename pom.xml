@@ -3,6 +3,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>redis-crud</module>
+        <module>sql-crud</module>
+        <module>common</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
