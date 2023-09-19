@@ -7,3 +7,16 @@ services:
     command: [ "redis-server", "--appendonly", "yes" ]
     ports:
       - "6379:6379"
+  db:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: user
+      MYSQL_ROOT_PASSWORD: user
+      MARIADB_MYSQL_LOCALHOST_USER: user
+      MARIADB_USER: user
+      MARIADB_PASSWORD: user
+      MARIADB_DATABASE: my_db
+    ports:
+      - "3306:3306"
