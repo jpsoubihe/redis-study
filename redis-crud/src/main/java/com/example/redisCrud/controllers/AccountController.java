@@ -1,6 +1,6 @@
 package com.example.redisCrud.controllers;
 
-import com.example.redisCrud.exceptions.AccountNotFoundException;
+import com.example.common.exceptions.AccountNotFoundException;
 import com.example.redisCrud.model.Account;
 import com.example.redisCrud.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 @Slf4j
 @RestController

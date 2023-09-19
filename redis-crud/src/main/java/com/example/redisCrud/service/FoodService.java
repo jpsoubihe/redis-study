@@ -1,6 +1,6 @@
 package com.example.redisCrud.service;
 
-import com.example.redisCrud.exceptions.FoodNotFoundException;
+import com.example.common.exceptions.FoodNotFoundException;
 import com.example.redisCrud.model.Food;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

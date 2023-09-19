@@ -1,6 +1,6 @@
 package com.example.redisCrud.service;
 
-import com.example.redisCrud.exceptions.AccountNotFoundException;
+import com.example.common.exceptions.AccountNotFoundException;
 import com.example.redisCrud.model.Account;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

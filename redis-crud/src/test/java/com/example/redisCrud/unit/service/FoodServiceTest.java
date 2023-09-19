@@ -1,6 +1,6 @@
 package com.example.redisCrud.unit.service;
 
-import com.example.redisCrud.exceptions.FoodNotFoundException;
+import com.example.common.exceptions.FoodNotFoundException;
 import com.example.redisCrud.model.Food;
 import com.example.redisCrud.model.FoodType;
 import com.example.redisCrud.service.FoodService;

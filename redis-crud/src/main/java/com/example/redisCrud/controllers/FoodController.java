@@ -1,6 +1,6 @@
 package com.example.redisCrud.controllers;
 
-import com.example.redisCrud.exceptions.FoodNotFoundException;
+import com.example.common.exceptions.FoodNotFoundException;
 import com.example.redisCrud.model.Food;
 import com.example.redisCrud.service.FoodService;
 import lombok.extern.slf4j.Slf4j;
