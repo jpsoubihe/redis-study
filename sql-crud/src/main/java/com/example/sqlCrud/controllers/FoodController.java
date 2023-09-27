@@ -23,7 +23,7 @@ public class FoodController {
     FoodService foodService;
 
     @PostMapping
-    public ResponseEntity<Food> createFood(@RequestBody Food food) throws Exception {
+    public ResponseEntity<Food> createFood(@RequestBody Food food) {
         log.info("[POST] processing request for food with id={}", food.getFoodId());
         return ResponseEntity.ok(foodService.createFood(food));
     }
