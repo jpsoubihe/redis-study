@@ -3,8 +3,8 @@ package com.example.sqlCrud.service;
 import com.example.common.exceptions.AccountNotFoundException;
 import com.example.sqlCrud.model.Account;
 import com.example.sqlCrud.repositories.AccountRepository;
+import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,17 +28,17 @@ public class AccountService {
 
     public Account getAccount(String accountId) throws AccountNotFoundException {
         log.info("[GET] Retrieveing account with id={}", accountId);
-        return accountRepository.findAccountByAccountId(accountId)
+        return accountRepository.findById(accountId)
                 .orElseThrow(() ->
                         new AccountNotFoundException(String.format("Account with id=%s was not found.", accountId)));
     }
 
     public boolean updateAccount(String accountId, Account account) {
         log.info("[PUT] Starting update of account with id={}", accountId);
-        accountRepository.findAccountByAccountId(accountId)
+        accountRepository.findById(accountId)
                 .ifPresentOrElse(retrievedAccount ->
-                        accountRepository.save(updateAccountInformation(retrievedAccount, account)),
-                        () -> accountRepository.save(saveAccount(account)));
+                        saveAccount(updateAccountInformation(retrievedAccount, account)),
+                        () -> saveAccount(account));
         return true;
     }
 
@@ -54,7 +54,7 @@ public class AccountService {
     }
 
     private Account saveAccount(Account account) {
-        if(account.getAccountId().isEmpty()) {
+        if(StringUtils.isEmpty(account.getAccountId())) {
             account.setAccountId(UUID.randomUUID().toString());
         }
         return accountRepository.save(account);
