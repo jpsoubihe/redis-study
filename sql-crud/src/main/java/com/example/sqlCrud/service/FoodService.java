@@ -22,9 +22,9 @@ public class FoodService {
         if(food.getFoodId() == null) {
             food.setFoodId(UUID.randomUUID().toString());
         }
-        foodRepository.save(food);
+        Food createdFood = foodRepository.save(food);
         log.info("[POST] Saved food with id={}", food.getFoodId());
-        return food;
+        return createdFood;
     }
 
     public Food getFood(String foodId) throws FoodNotFoundException {
@@ -35,10 +35,13 @@ public class FoodService {
 
     public boolean updateFood(String foodId, Food newFood) {
         log.info("[PUT] updating food with id={}", foodId);
-        foodRepository.findFoodByFoodId(newFood.getFoodId())
+        foodRepository.findFoodByFoodId(foodId)
                 .ifPresentOrElse(
                         food -> foodRepository.save(updateFoodInformation(food, newFood)),
-                        () -> foodRepository.save(newFood));
+                        () -> {
+                            newFood.setFoodId(foodId);
+                            createFood(newFood);
+                        });
         return true;
     }
 
@@ -58,10 +61,8 @@ public class FoodService {
         log.info("Complementing info for food record of id={}", foodRecord.getFoodId());
         Optional.ofNullable(newFood.getFoodName()).ifPresent(foodRecord::setFoodName);
         Optional.ofNullable(newFood.getFoodType()).ifPresent(foodRecord::setFoodType);
-        Optional.ofNullable(newFood.getFoodIngredients())
-                .ifPresent(ingredients ->
-                        ingredients.forEach(i ->
-                                foodRecord.getFoodIngredients().add(i)));
+        // ToDo: this could be a complementary update, merging previous and new ingredients
+        Optional.ofNullable(newFood.getFoodIngredients()).ifPresent(foodRecord::setFoodIngredients);
         return foodRecord;
     }
 }
