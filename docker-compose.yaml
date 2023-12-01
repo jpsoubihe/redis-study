@@ -20,3 +20,33 @@ services:
       MARIADB_DATABASE: my_db
     ports:
       - "3306:3306"
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - /home/joao.soubihe/prometheus/:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring-network
+    restart: always
+  grafana:
+      image: grafana/grafana:latest
+      volumes:
+        - grafana-storage:/var/lib/grafana
+      environment:
+        - GF_SECURITY_ADMIN_PASSWORD=secret
+      ports:
+        - "3000:3000"
+      networks:
+        - monitoring-network
+      restart: always
+      depends_on:
+        - prometheus
+
+volumes:
+  grafana-storage:
+networks:
+  monitoring-network:
+    driver: bridge
