@@ -1,5 +1,6 @@
 spring:
   datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/my_db
     username: user
     password: user
@@ -7,3 +8,15 @@ spring:
     url: jdbc:mariadb://localhost:3306/my_db
     user: user
     password: user
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
