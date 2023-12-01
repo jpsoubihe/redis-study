@@ -123,9 +123,23 @@ To run both unit and integration tests we can opt for the mvn verify task
 ./mvnw verify
 ```
 
+## Monitoring
+
+On docker-compose file, found on src folder, we can see a setup for prometheus and grafana.
+
+We are using spring-actuator tools to expose metrics and health indicators.
+
+The micrometer registry dependency is the responsible to export data, seen at `/actuator/prometheus`, at an understadable format for prometheus server scraping.
+
+Grafana will use a network bridge to connect to this prometheus server container and visualize data through its built Dashboards
+
+### Dashboards
+
+### Alarms
+
 ## Future developments
 
 - Checkstyle task and configuration definition
-- Add a relational DB integration to the same models
 - Add metrics
 - Add dashboards for performance comparison
+
