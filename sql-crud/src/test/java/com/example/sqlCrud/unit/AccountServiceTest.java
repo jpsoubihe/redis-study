@@ -1,6 +1,7 @@
 package com.example.sqlCrud.unit;
 
 import com.example.common.exceptions.AccountNotFoundException;
+import com.example.sqlCrud.metrics.MetricsHelper;
 import com.example.sqlCrud.model.Account;
 import com.example.sqlCrud.repositories.AccountRepository;
 import com.example.sqlCrud.service.AccountService;
@@ -29,6 +30,9 @@ public class AccountServiceTest {
 
     @Mock
     AccountRepository accountRepository;
+
+    @Mock
+    MetricsHelper metricsHelper;
 
     protected ArgumentCaptor<Account> argumentCaptor = ArgumentCaptor.forClass(Account.class);
 

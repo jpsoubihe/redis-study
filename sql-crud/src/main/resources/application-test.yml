@@ -1,14 +1,14 @@
 spring:
   datasource:
-    #    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:tc:mariadb://localhost:3306/my_db
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/my_db
     username: user
     password: user
-  #  flyway:
-  #    url: jdbc:tc:mariadb://localhost:3306/my_db
-  #    user: user
-  #    password: user
+    flyway:
+      url: jdbc:mariadb://localhost:3306/my_db
+      user: user
+      password: user
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.MySQLDialect

@@ -1,6 +1,7 @@
 package com.example.sqlCrud.unit;
 
 import com.example.common.exceptions.FoodNotFoundException;
+import com.example.sqlCrud.metrics.MetricsHelper;
 import com.example.sqlCrud.model.Food;
 import com.example.sqlCrud.model.FoodType;
 import com.example.sqlCrud.repositories.FoodRepository;
@@ -30,6 +31,9 @@ public class FoodServiceTest {
 
     @Mock
     FoodRepository foodRepository;
+
+    @Mock
+    MetricsHelper metricsHelper;
 
     protected ArgumentCaptor<Food> argumentCaptor = ArgumentCaptor.forClass(Food.class);
 

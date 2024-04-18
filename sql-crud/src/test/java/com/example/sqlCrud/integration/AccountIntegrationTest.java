@@ -1,6 +1,7 @@
 package com.example.sqlCrud.integration;
 
 import com.example.sqlCrud.controllers.AccountController;
+import com.example.sqlCrud.metrics.MetricsHelper;
 import com.example.sqlCrud.model.Account;
 import com.example.sqlCrud.service.AccountService;
 import org.junit.jupiter.api.Test;
@@ -11,8 +12,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.UUID;
 
-import static com.example.sqlCrud.integration.TestConstants.BASE_ACCOUNT_URL_SUFFIX;
-import static com.example.sqlCrud.integration.TestConstants.BASE_URL;
+import static com.example.sqlCrud.TestConstants.BASE_ACCOUNT_URL_SUFFIX;
+import static com.example.sqlCrud.TestConstants.BASE_URL;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles(value = "test")
@@ -23,6 +24,9 @@ public class AccountIntegrationTest {
 
     @Autowired
     AccountController accountController;
+
+    @Autowired
+    MetricsHelper metricsHelper;
 
     private final Account testAccount = Account.builder()
             .accountId("123")

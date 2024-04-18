@@ -13,8 +13,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.util.Collections;
 import java.util.UUID;
 
-import static com.example.sqlCrud.integration.TestConstants.BASE_FOOD_URL_SUFFIX;
-import static com.example.sqlCrud.integration.TestConstants.BASE_URL;
+import static com.example.sqlCrud.TestConstants.BASE_FOOD_URL_SUFFIX;
+import static com.example.sqlCrud.TestConstants.BASE_URL;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles(value = "test")
