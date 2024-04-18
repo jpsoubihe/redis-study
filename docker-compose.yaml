@@ -7,6 +7,15 @@ services:
     command: [ "redis-server", "--appendonly", "yes" ]
     ports:
       - "6379:6379"
+  redis-exporter:
+    image: bitnami/redis-exporter:1.58.0
+    ports:
+      - "9121:9121"
+    networks:
+      - default
+      - monitoring-network
+    command:
+      - '--redis.addr=redis://redis:6379'
   db:
     image: mariadb
     container_name: mariadb
@@ -20,6 +29,14 @@ services:
       MARIADB_DATABASE: my_db
     ports:
       - "3306:3306"
+  mysql-exporter:
+    image: prom/mysqld-exporter
+    container_name: mysql-exporter
+    ports:
+      - 9104:9104
+    command:
+      - "--mysqld.username=root:user"
+      - "--mysqld.address=mariadb:3306"
   prometheus:
     image: prom/prometheus:latest
     volumes:
