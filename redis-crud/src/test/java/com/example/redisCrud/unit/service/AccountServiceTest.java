@@ -1,6 +1,7 @@
 package com.example.redisCrud.unit.service;
 
 import com.example.common.exceptions.AccountNotFoundException;
+import com.example.redisCrud.metrics.MetricsHelper;
 import com.example.redisCrud.model.Account;
 import com.example.redisCrud.service.AccountService;
 import org.junit.jupiter.api.Assertions;
@@ -33,6 +34,9 @@ class AccountServiceTest {
 
     @Mock
     private ValueOperations<String, Account> valueOperations;
+
+    @Mock
+    MetricsHelper metricsHelper;
 
     private String accountId;
 

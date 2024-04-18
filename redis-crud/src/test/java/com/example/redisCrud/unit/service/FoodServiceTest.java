@@ -1,6 +1,7 @@
 package com.example.redisCrud.unit.service;
 
 import com.example.common.exceptions.FoodNotFoundException;
+import com.example.redisCrud.metrics.MetricsHelper;
 import com.example.redisCrud.model.Food;
 import com.example.redisCrud.model.FoodType;
 import com.example.redisCrud.service.FoodService;
@@ -38,6 +39,9 @@ class FoodServiceTest {
 
     @Mock
     private ValueOperations<String, Food> valueOperations;
+
+    @Mock
+    MetricsHelper metricsHelper;
 
     private String foodId;
 
