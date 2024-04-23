@@ -60,9 +60,22 @@ And to store accounts
 
 We configured two different **RedisTemplate** for operations involving foods and accounts, respectively. The beans can be seen at `RedisConfiguration.java` class. With it we applied a RedisValueSerializer using **Jackson2JsonRedisSerializer** to allow our objects to be mapped to their abstractions, instead of handling it as strings.
 
+## SQL structure
+
+At sql-crud module, we decided to implement basically same API, but now with a relational persistence running in backup. 
+
+For this we decided to use mariadb, an open-source relational database with similar features of MySQL, actually it's a fork from the latter one.
+
+We utilized Hibernate as ORM to allow this interaction between DB and our application. At `com/example/sqlCrud/model` you'll be able to check the current mapping.
+
+The objects remain the same, for proper comparison with the non-SQL database.
+
+
+
+
 ## Tests
 
-We can see tests made at ./src/test/java/com/example/redisStudy
+We can see tests made at `./src/test/java/com/example/redisStudy`
 
 IntegrationTests are located at `integrationTest` folder. All of them will have same suffix. 
 
@@ -133,13 +146,34 @@ The micrometer registry dependency is the responsible to export data, seen at `/
 
 Grafana will use a network bridge to connect to this prometheus server container and visualize data through its built Dashboards
 
+We also added specific exporters for Redis (`bitnami/redis-exporter:1.58.0`) and MariaDB (`prom/mysqld-exporter`).
+
+At `docker-compose.yaml` file we can check all relations and port mapping made to allow interaction between containers.
+
+Basically, the exporters have to access respective accessories to query its metrics, 
+while prometheus have to communicate with them as its targets to scrape metrics from, besides the application itself, that also export relevant custom metrics.
+
 ### Dashboards
 
-### Alarms
+For Grafana dashboards, we also thought on having the most similar structure between the both modules involved in this briefy study.
+
+We divided them into association rows, gathering related data
+
+- API Requests:
+  - Average Number of requests
+  - Request Average Response Time
+- DB
+  - query average time
+  - DB healthcheck
+- Misc (with some hardware information)
+  - Memory
+  - CPU usage
+
+And with this metrics we aim to build our comparation and collect relevant data to understand better the pros and cons 
+of a SQL or non-SQL approach.
 
 ## Future developments
 
-- Checkstyle task and configuration definition
-- Add metrics
-- Add dashboards for performance comparison
+- Jmeter script for load test
+- Improvements on defined objects for the study 
 
